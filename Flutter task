@@ -1,0 +1,64 @@
+package app;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class ReminderApp extends JFrame {
+
+    private String[] daysOfWeek = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+    private String[] activities = {"Wake up", "Go to gym", "Breakfast", "Meetings", "Lunch", "Quick nap", "Go to library", "Dinner", "Go to sleep"};
+
+    public ReminderApp() {
+        setTitle("Daily Reminder");
+        setSize(300, 200);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+
+        JPanel panel = new JPanel(new GridLayout(4, 2, 10, 10));
+
+        // Day of the week dropdown
+        JLabel dayLabel = new JLabel("Select Day:");
+        JComboBox<String> dayComboBox = new JComboBox<>(daysOfWeek);
+        panel.add(dayLabel);
+        panel.add(dayComboBox);
+
+        // Time dropdown
+        JLabel timeLabel = new JLabel("Select Time:");
+        JTextField timeField = new JTextField();
+        panel.add(timeLabel);
+        panel.add(timeField);
+
+        // Activity dropdown
+        JLabel activityLabel = new JLabel("Select Activity:");
+        JComboBox<String> activityComboBox = new JComboBox<>(activities);
+        panel.add(activityLabel);
+        panel.add(activityComboBox);
+
+        // Set Reminder button
+        JButton setReminderBtn = new JButton("Set Reminder");
+        setReminderBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String selectedDay = (String) dayComboBox.getSelectedItem();
+                String selectedTime = timeField.getText();
+                String selectedActivity = (String) activityComboBox.getSelectedItem();
+                JOptionPane.showMessageDialog(null, "Reminder set for " + selectedDay + " at " + selectedTime + " to " + selectedActivity);
+                // Add code to play sound here
+            }
+        });
+        panel.add(setReminderBtn);
+
+        add(panel);
+        setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new ReminderApp();
+            }
+        });
+    }
+}
